@@ -6,8 +6,24 @@
 	objectVersion = 77;
 	objects = {
 
+/* Begin PBXBuildFile section */
+		E73F920D2E7BFA330089AD06 /* AudioKit in Frameworks */ = {isa = PBXBuildFile; productRef = E73F920C2E7BFA330089AD06 /* AudioKit */; };
+		E73F922E2E7C351F0089AD06 /* SoundpipeAudioKit in Frameworks */ = {isa = PBXBuildFile; productRef = E73F922D2E7C351F0089AD06 /* SoundpipeAudioKit */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		E73F92162E7BFD8F0089AD06 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = E72DF0BA2E7947E80099FFE8 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = E72DF0C12E7947E80099FFE8;
+			remoteInfo = "C6-DEMO";
+		};
+/* End PBXContainerItemProxy section */
+
 /* Begin PBXFileReference section */
 		E72DF0C22E7947E80099FFE8 /* C6-DEMO.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "C6-DEMO.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		E73F92122E7BFD8F0089AD06 /* C6-DEMOTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "C6-DEMOTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
@@ -16,10 +32,24 @@
 			path = "C6-DEMO";
 			sourceTree = "<group>";
 		};
+		E73F92132E7BFD8F0089AD06 /* C6-DEMOTests */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			path = "C6-DEMOTests";
+			sourceTree = "<group>";
+		};
 /* End PBXFileSystemSynchronizedRootGroup section */
 
 /* Begin PBXFrameworksBuildPhase section */
 		E72DF0BF2E7947E80099FFE8 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				E73F922E2E7C351F0089AD06 /* SoundpipeAudioKit in Frameworks */,
+				E73F920D2E7BFA330089AD06 /* AudioKit in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		E73F920F2E7BFD8F0089AD06 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -33,6 +63,7 @@
 			isa = PBXGroup;
 			children = (
 				E72DF0C42E7947E80099FFE8 /* C6-DEMO */,
+				E73F92132E7BFD8F0089AD06 /* C6-DEMOTests */,
 				E72DF0C32E7947E80099FFE8 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -41,6 +72,7 @@
 			isa = PBXGroup;
 			children = (
 				E72DF0C22E7947E80099FFE8 /* C6-DEMO.app */,
+				E73F92122E7BFD8F0089AD06 /* C6-DEMOTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -65,10 +97,35 @@
 			);
 			name = "C6-DEMO";
 			packageProductDependencies = (
+				E73F920C2E7BFA330089AD06 /* AudioKit */,
+				E73F922D2E7C351F0089AD06 /* SoundpipeAudioKit */,
 			);
 			productName = "C6-DEMO";
 			productReference = E72DF0C22E7947E80099FFE8 /* C6-DEMO.app */;
 			productType = "com.apple.product-type.application";
+		};
+		E73F92112E7BFD8F0089AD06 /* C6-DEMOTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = E73F92182E7BFD8F0089AD06 /* Build configuration list for PBXNativeTarget "C6-DEMOTests" */;
+			buildPhases = (
+				E73F920E2E7BFD8F0089AD06 /* Sources */,
+				E73F920F2E7BFD8F0089AD06 /* Frameworks */,
+				E73F92102E7BFD8F0089AD06 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				E73F92172E7BFD8F0089AD06 /* PBXTargetDependency */,
+			);
+			fileSystemSynchronizedGroups = (
+				E73F92132E7BFD8F0089AD06 /* C6-DEMOTests */,
+			);
+			name = "C6-DEMOTests";
+			packageProductDependencies = (
+			);
+			productName = "C6-DEMOTests";
+			productReference = E73F92122E7BFD8F0089AD06 /* C6-DEMOTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
 		};
 /* End PBXNativeTarget section */
 
@@ -77,11 +134,15 @@
 			isa = PBXProject;
 			attributes = {
 				BuildIndependentTargetsInParallel = 1;
-				LastSwiftUpdateCheck = 1640;
+				LastSwiftUpdateCheck = 2600;
 				LastUpgradeCheck = 1640;
 				TargetAttributes = {
 					E72DF0C12E7947E80099FFE8 = {
 						CreatedOnToolsVersion = 16.4;
+					};
+					E73F92112E7BFD8F0089AD06 = {
+						CreatedOnToolsVersion = 26.0;
+						TestTargetID = E72DF0C12E7947E80099FFE8;
 					};
 				};
 			};
@@ -94,18 +155,30 @@
 			);
 			mainGroup = E72DF0B92E7947E80099FFE8;
 			minimizedProjectReferenceProxies = 1;
+			packageReferences = (
+				E73F920B2E7BFA330089AD06 /* XCRemoteSwiftPackageReference "AudioKit" */,
+				E73F922C2E7C351F0089AD06 /* XCRemoteSwiftPackageReference "SoundpipeAudioKit" */,
+			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = E72DF0C32E7947E80099FFE8 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
 				E72DF0C12E7947E80099FFE8 /* C6-DEMO */,
+				E73F92112E7BFD8F0089AD06 /* C6-DEMOTests */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
 		E72DF0C02E7947E80099FFE8 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		E73F92102E7BFD8F0089AD06 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -122,7 +195,22 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		E73F920E2E7BFD8F0089AD06 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		E73F92172E7BFD8F0089AD06 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = E72DF0C12E7947E80099FFE8 /* C6-DEMO */;
+			targetProxy = E73F92162E7BFD8F0089AD06 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
 
 /* Begin XCBuildConfiguration section */
 		E72DF0CB2E7947E90099FFE8 /* Debug */ = {
@@ -304,6 +392,50 @@
 			};
 			name = Release;
 		};
+		E73F92192E7BFD8F0089AD06 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 7WT5JSS7B6;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 26.0;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.C6-DEMOTests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				STRING_CATALOG_GENERATE_SYMBOLS = NO;
+				SWIFT_APPROACHABLE_CONCURRENCY = YES;
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/C6-DEMO.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/C6-DEMO";
+			};
+			name = Debug;
+		};
+		E73F921A2E7BFD8F0089AD06 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 7WT5JSS7B6;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 26.0;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.C6-DEMOTests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				STRING_CATALOG_GENERATE_SYMBOLS = NO;
+				SWIFT_APPROACHABLE_CONCURRENCY = YES;
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/C6-DEMO.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/C6-DEMO";
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -325,7 +457,48 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
+		E73F92182E7BFD8F0089AD06 /* Build configuration list for PBXNativeTarget "C6-DEMOTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				E73F92192E7BFD8F0089AD06 /* Debug */,
+				E73F921A2E7BFD8F0089AD06 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		E73F920B2E7BFA330089AD06 /* XCRemoteSwiftPackageReference "AudioKit" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/AudioKit/AudioKit.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 5.6.5;
+			};
+		};
+		E73F922C2E7C351F0089AD06 /* XCRemoteSwiftPackageReference "SoundpipeAudioKit" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/AudioKit/SoundpipeAudioKit.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 5.7.3;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		E73F920C2E7BFA330089AD06 /* AudioKit */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = E73F920B2E7BFA330089AD06 /* XCRemoteSwiftPackageReference "AudioKit" */;
+			productName = AudioKit;
+		};
+		E73F922D2E7C351F0089AD06 /* SoundpipeAudioKit */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = E73F922C2E7C351F0089AD06 /* XCRemoteSwiftPackageReference "SoundpipeAudioKit" */;
+			productName = SoundpipeAudioKit;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = E72DF0BA2E7947E80099FFE8 /* Project object */;
 }
