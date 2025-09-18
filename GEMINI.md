@@ -80,3 +80,4 @@ The five SOLID principles of object-oriented design will be strictly followed:
 ## 6. Tool Usage Conventions
 
 - **Context7 for Documentation:** Whenever code generation, setup, or configuration steps require library/API documentation, automatically use the Context7 MCP tools to resolve library IDs and fetch library documentation without being explicitly asked.
+- **Documentation Lookup Workflow:** Use GoogleSearch to discover what official documentation exists. Use Context7 to understand the content of that official documentation.
