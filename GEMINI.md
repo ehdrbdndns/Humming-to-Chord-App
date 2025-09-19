@@ -38,6 +38,7 @@ The five SOLID principles of object-oriented design will be strictly followed:
 
 ### 4.2. Additional Swift Coding Rules
 
+- **Latest Swift Syntax:** The project's code will always prioritize using the latest Swift syntax.
 - **Swift API Design Guidelines:** Adhere to the official [Apple Swift API Design Guidelines](https://www.swift.org/documentation/api-design-guidelines/) for naming and clarity.
 - **SwiftLint Integration:** Use `SwiftLint` to enforce a consistent code style and identify potential issues.
 - **Immutability:** Prefer `let` over `var` wherever possible to create predictable and safer code.
@@ -81,3 +82,15 @@ The five SOLID principles of object-oriented design will be strictly followed:
 
 - **Context7 for Documentation:** Whenever code generation, setup, or configuration steps require library/API documentation, automatically use the Context7 MCP tools to resolve library IDs and fetch library documentation without being explicitly asked.
 - **Documentation Lookup Workflow:** Use GoogleSearch to discover what official documentation exists. Use Context7 to understand the content of that official documentation.
+- **Reference Provisioning Workflow:** When providing a URL as a reference, do not just show the URL text. First, use the `web_fetch` tool to directly fetch and summarize the content of the URL. This verifies the link is active and provides immediate context.
+- **Proactive Code Review:** Before suggesting code modifications or new features, always check the latest content of the relevant files to ensure suggestions are based on the current state of the codebase.
+
+## 7. Collaboration Model (TDD Workflow)
+
+We will follow a Test-Driven Development (TDD) workflow with the following roles:
+
+1.  **Goal Proposal:** Gemini proposes the next feature or test target in plain text, including a suggested test function name.
+2.  **[RED] - User Action:** The user writes the new failing test code.
+3.  **[GREEN] - User Action:** After the test is confirmed to fail, the user writes the production code to make the test pass.
+4.  **Review:** Gemini acts as a code reviewer for both the test and production code, providing advice.
+5.  **[REFACTOR]:** Together, we refactor the code based on the review.
