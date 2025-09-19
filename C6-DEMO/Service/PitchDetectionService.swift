@@ -29,7 +29,15 @@ class PitchDetectionService: PitchDetectionServiceProtocol {
     private let pitchSubject = PassthroughSubject<PitchData, Never>()
     
     func start() throws {
+        // 오디오 권한 확인
         
+        // 마이크 가져오기
+        
+        // PitchTap 생성 및 설치
+        
+        // PitchTap 핸들러 구현
+        
+        // 엔진 추력 설정 및 시작
     }
     
     func stop() {

@@ -30,17 +30,81 @@ final class ContentViewModelTests: XCTestCase {
         
         let expectation = XCTestExpectation(description: "resultText가 예상대로 업데이트되어야 합니다.")
         
-        viewModel.$resultText
-            .dropFirst()
-            .sink {
-                newText in
-                XCTAssertEqual(newText, expectedText)
-                expectation.fulfill()
-            }
-            .store(in: &cancellables)
+        withObservationTracking {
+            _ = viewModel.resultText
+        } onChange: {
+            expectation.fulfill()
+        }
         
         mockPitchService.mockPitchSubject.send((testPitch, testAmplitude))
         
         wait(for: [expectation], timeout: 1.0)
+        
+        XCTAssertEqual(self.viewModel.resultText, expectedText)
+    }
+    
+    func test_toggleRecording_shouldCallStartOnService() {
+        viewModel.toggleRecording()
+        
+        XCTAssertTrue(mockPitchService.startCalled, "toggleRecording()을 호출하면 pitchService.start()가 호출되어야 합니다.")
+    }
+    
+    func test_toggleRecording_whenNotRecording_shoudSetIsRecordingToTrue() {
+        let expectation = XCTestExpectation(description: "isRecording 상태가 true여야 합니다.")
+        
+        withObservationTracking {
+            _ = viewModel.isRecording
+        } onChange: {
+            expectation.fulfill()
+        }
+    
+        viewModel.toggleRecording()
+        
+        wait(for: [expectation], timeout: 1.0)
+        
+        XCTAssertTrue(viewModel.isRecording, "녹음이 시작되면 isRecording 상태가 true여야 합니다.")
+    }
+    
+    func test_toggleRecording_whenRecording_shouldCallStopOnService() {
+        viewModel.toggleRecording()
+        
+        viewModel.toggleRecording()
+        
+        XCTAssertTrue(mockPitchService.stopCalled, "녹음 중일 때 toggleRecording()을 호출하면 pitchService.stop()이 호출되어야 합니다.")
+    }
+    
+    func test_toggleRecording_whenRecording_shouldSetIsRecordingToFalse() {
+        let expectation = XCTestExpectation(description: "isRecording 상태가 false여야 합니다.")
+        
+        viewModel.toggleRecording()
+        
+        withObservationTracking {
+            _ = viewModel.isRecording
+        } onChange: {
+            expectation.fulfill()
+        }
+        
+        viewModel.toggleRecording()
+        
+        wait(for: [expectation], timeout: 0.1)
+        XCTAssertFalse(viewModel.isRecording, "녹음이 중지되면 isRecording 상태가 false여야 합니다.")
+    }
+    
+    func test_toggleRecording_whenErrorOccurred_shouldShowErrorMessage() {
+        mockPitchService.shouldThrowStartError = true
+        
+        let expectation = XCTestExpectation(description: "에러 메시지가 표시되어야 합니다.")
+        
+        withObservationTracking {
+            _ = viewModel.errorText
+        } onChange: {
+            expectation.fulfill()
+        }
+        
+        viewModel.toggleRecording()
+        
+        wait(for: [expectation], timeout: 0.1)
+        
+        XCTAssertEqual(viewModel.errorText, "잠시 후 다시 시도해 주세요.")
     }
 }

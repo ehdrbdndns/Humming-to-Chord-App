@@ -2,6 +2,10 @@ import Foundation
 import Combine
 @testable import C6_DEMO
 
+enum TestError: Error {
+    case intentionalError
+}
+
 class MockPitchDetectionService: PitchDetectionServiceProtocol {
     
     var pitchPublisher: AnyPublisher<PitchData, Never> {
@@ -13,7 +17,13 @@ class MockPitchDetectionService: PitchDetectionServiceProtocol {
     var startCalled = false
     var stopCalled = false
     
-    func start() {
+    var shouldThrowStartError = false
+    
+    func start() throws {
+        if shouldThrowStartError {
+            throw TestError.intentionalError
+        }
+        
         startCalled = true
     }
     
