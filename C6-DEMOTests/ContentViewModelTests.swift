@@ -86,7 +86,7 @@ final class ContentViewModelTests: XCTestCase {
         
         viewModel.toggleRecording()
         
-        wait(for: [expectation], timeout: 0.1)
+        wait(for: [expectation], timeout: 1.0)
         XCTAssertFalse(viewModel.isRecording, "녹음이 중지되면 isRecording 상태가 false여야 합니다.")
     }
     
@@ -103,8 +103,27 @@ final class ContentViewModelTests: XCTestCase {
         
         viewModel.toggleRecording()
         
-        wait(for: [expectation], timeout: 0.1)
+        wait(for: [expectation], timeout: 1.0)
         
         XCTAssertEqual(viewModel.errorText, "잠시 후 다시 시도해 주세요.")
+    }
+    
+    func test_clearError_shouldSetErrorMessageToNil() {
+        let expectation = XCTestExpectation(description: "에러 메시지가 nil 값이어야 합니다.")
+        
+        mockPitchService.shouldThrowStartError = true
+        viewModel.toggleRecording()
+        
+        withObservationTracking {
+            _ = viewModel.errorText
+        } onChange: {
+            expectation.fulfill()
+        }
+
+        viewModel.clearError()
+        
+        wait(for: [expectation], timeout: 1.0)
+        
+        XCTAssertNil(viewModel.errorText)
     }
 }

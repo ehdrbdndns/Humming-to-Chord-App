@@ -31,7 +31,7 @@ class PitchDetectionService: PitchDetectionServiceProtocol {
                 guard let amplitude = amp.max(), !pitch.isEmpty else { return }
                 let pitchValue = pitch.reduce(0, +) / Float(pitch.count)
                 
-                if amplitude > 0.01 {
+                if amplitude > 0.3 { // noise 범위 설정
                     self?.pitchSubject.send((pitch: Double(pitchValue), amplitude: Double(amplitude)))
                 }
             }

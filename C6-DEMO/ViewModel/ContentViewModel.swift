@@ -78,4 +78,8 @@ class ContentViewModel {
             isRecording = false
         }
     }
+    
+    func clearError() {
+        errorText = nil
+    }
 }

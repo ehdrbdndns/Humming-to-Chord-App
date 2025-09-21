@@ -1,21 +1,64 @@
-//
-//  ContentView.swift
-//  C6-DEMO
-//
-//  Created by Donggyun Yang on 9/16/25.
-//
-
 import SwiftUI
 
 struct ContentView: View {
+    @State private var viewModel = ContentViewModel()
+
     var body: some View {
-        VStack {
-            Image(systemName: "globe")
-                .imageScale(.large)
-                .foregroundStyle(.tint)
-            Text("Hello, world!")
+        VStack(spacing: 20) {
+            Text("Hum to Chords")
+                .font(.largeTitle)
+                .fontWeight(.bold)
+                .padding(.top)
+
+            // Waveform View Placeholder
+            ZStack {
+                Rectangle()
+                    .fill(Color(uiColor: .secondarySystemBackground))
+                    .cornerRadius(10)
+                Text("Waveform will be here")
+                    .foregroundStyle(.secondary)
+            }
+            .frame(height: 100)
+
+            // Result Text View
+            Text(viewModel.resultText.isEmpty ? "Press Record to start analyzing" : viewModel.resultText)
+                .font(.headline)
+                .foregroundStyle(.secondary)
+                .lineLimit(1)
+                .minimumScaleFactor(0.8)
+                .padding()
+                .frame(height: 50)
+
+            Spacer()
+
+            // Record/Stop Button
+            Button {
+                viewModel.toggleRecording()
+            } label: {
+                Text(viewModel.isRecording ? "Stop" : "Record")
+                    .font(.title)
+                    .fontWeight(.bold)
+                    .foregroundColor(.white)
+                    .frame(width: 150, height: 150)
+                    .background(viewModel.isRecording ? Color.red : Color.blue)
+                    .clipShape(Circle())
+                    .shadow(color: .gray.opacity(0.5), radius: 10, x: 0, y: 5)
+            }
+            
+            Spacer()
         }
         .padding()
+        .alert(
+            "An Error Occurred",
+            isPresented: Binding(
+                get: { viewModel.errorText != nil },
+                set: { if !$0 { viewModel.clearError() } }
+            )
+        ) {
+            Button("OK") {}
+        } message: {
+            Text(viewModel.errorText ?? "An unknown error occurred.")
+        }
     }
 }
 

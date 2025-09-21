@@ -39,6 +39,7 @@ The five SOLID principles of object-oriented design will be strictly followed:
 ### 4.2. Additional Swift Coding Rules
 
 - **Latest Swift Syntax:** The project's code will always prioritize using the latest Swift syntax.
+- **SwiftUI State Management:** When a view owns an instance of an `@Observable` class, use the `@State` property wrapper to manage its lifecycle and ensure its persistence (e.g., `@State private var viewModel = MyViewModel()`).
 - **Swift API Design Guidelines:** Adhere to the official [Apple Swift API Design Guidelines](https://www.swift.org/documentation/api-design-guidelines/) for naming and clarity.
 - **SwiftLint Integration:** Use `SwiftLint` to enforce a consistent code style and identify potential issues.
 - **Immutability:** Prefer `let` over `var` wherever possible to create predictable and safer code.
@@ -81,7 +82,7 @@ The five SOLID principles of object-oriented design will be strictly followed:
 ## 6. Tool Usage Conventions
 
 - **Context7 for Documentation:** Whenever code generation, setup, or configuration steps require library/API documentation, automatically use the Context7 MCP tools to resolve library IDs and fetch library documentation without being explicitly asked.
-- **Documentation Lookup Workflow:** Use GoogleSearch to discover what official documentation exists. Use Context7 to understand the content of that official documentation.
+- **Information Retrieval Workflow:** When searching for information, especially for questions about a specific library's API or usage, prioritize the use of `context7`. Only use `GoogleSearch` as a secondary tool if the desired information cannot be found with `context7` or if the search is about a broader topic (architecture, tutorials, etc.).
 - **Reference Provisioning Workflow:** When providing a URL as a reference, do not just show the URL text. First, use the `web_fetch` tool to directly fetch and summarize the content of the URL. This verifies the link is active and provides immediate context.
 - **Proactive Code Review:** Before suggesting code modifications or new features, always check the latest content of the relevant files to ensure suggestions are based on the current state of the codebase.
 
@@ -94,3 +95,4 @@ We will follow a Test-Driven Development (TDD) workflow with the following roles
 3.  **[GREEN] - User Action:** After the test is confirmed to fail, the user writes the production code to make the test pass.
 4.  **Review:** Gemini acts as a code reviewer for both the test and production code, providing advice.
 5.  **[REFACTOR]:** Together, we refactor the code based on the review.
+6.  **Strict TDD Cycle:** All feature additions and modifications, even small logic to support the UI, must go through an independent TDD cycle (Red-Green-Refactor). Gemini will not bundle multiple features or logic changes into a single large step proposal.
