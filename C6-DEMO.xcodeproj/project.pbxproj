@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		E71B9A142E80017000C94B68 /* Waveform in Frameworks */ = {isa = PBXBuildFile; productRef = E71B9A132E80017000C94B68 /* Waveform */; };
 		E73F920D2E7BFA330089AD06 /* AudioKit in Frameworks */ = {isa = PBXBuildFile; productRef = E73F920C2E7BFA330089AD06 /* AudioKit */; };
 		E73F922E2E7C351F0089AD06 /* SoundpipeAudioKit in Frameworks */ = {isa = PBXBuildFile; productRef = E73F922D2E7C351F0089AD06 /* SoundpipeAudioKit */; };
 /* End PBXBuildFile section */
@@ -45,6 +46,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				E73F922E2E7C351F0089AD06 /* SoundpipeAudioKit in Frameworks */,
+				E71B9A142E80017000C94B68 /* Waveform in Frameworks */,
 				E73F920D2E7BFA330089AD06 /* AudioKit in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -99,6 +101,7 @@
 			packageProductDependencies = (
 				E73F920C2E7BFA330089AD06 /* AudioKit */,
 				E73F922D2E7C351F0089AD06 /* SoundpipeAudioKit */,
+				E71B9A132E80017000C94B68 /* Waveform */,
 			);
 			productName = "C6-DEMO";
 			productReference = E72DF0C22E7947E80099FFE8 /* C6-DEMO.app */;
@@ -158,6 +161,7 @@
 			packageReferences = (
 				E73F920B2E7BFA330089AD06 /* XCRemoteSwiftPackageReference "AudioKit" */,
 				E73F922C2E7C351F0089AD06 /* XCRemoteSwiftPackageReference "SoundpipeAudioKit" */,
+				E71B9A122E80017000C94B68 /* XCRemoteSwiftPackageReference "Waveform" */,
 			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = E72DF0C32E7947E80099FFE8 /* Products */;
@@ -469,6 +473,14 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
+		E71B9A122E80017000C94B68 /* XCRemoteSwiftPackageReference "Waveform" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/AudioKit/Waveform.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 1.0.2;
+			};
+		};
 		E73F920B2E7BFA330089AD06 /* XCRemoteSwiftPackageReference "AudioKit" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/AudioKit/AudioKit.git";
@@ -488,6 +500,11 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		E71B9A132E80017000C94B68 /* Waveform */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = E71B9A122E80017000C94B68 /* XCRemoteSwiftPackageReference "Waveform" */;
+			productName = Waveform;
+		};
 		E73F920C2E7BFA330089AD06 /* AudioKit */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = E73F920B2E7BFA330089AD06 /* XCRemoteSwiftPackageReference "AudioKit" */;
