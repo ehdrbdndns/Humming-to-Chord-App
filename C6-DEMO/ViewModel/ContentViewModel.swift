@@ -22,6 +22,7 @@ class ContentViewModel {
     private(set) var resultText: String = ""
     private(set) var isRecording: Bool = false
     private(set) var errorText: String? = nil
+    private(set) var waveformSamples: [Float] = []
     
     private let pitchService: PitchDetectionServiceProtocol
     private var cancellables: Set<AnyCancellable> = []
@@ -36,7 +37,7 @@ class ContentViewModel {
         }
         
         self.engine = AudioEngine()
-        self.pitchService = PitchDetectionService(engine: engine)
+        self.pitchService = PitchDetectionService(nodeToTap: engine.input!)
         
         engine.output = Mixer(self.engine.input!)
         
@@ -54,7 +55,9 @@ class ContentViewModel {
     private func setupSink() {
         pitchService.pitchPublisher
             .sink { [weak self] (pitch, amplitude) in
-                self?.resultText = "Pitch: \(pitch), Amp: \(amplitude)"
+                DispatchQueue.main.async {
+                    self?.resultText = "Pitch: \(pitch), Amp: \(amplitude)"
+                }
             }
             .store(in: &cancellables)
     }
@@ -62,6 +65,7 @@ class ContentViewModel {
     func toggleRecording() {
         if isRecording {
             pitchService.stop()
+            
             engine.stop()
             isRecording = false
             return;

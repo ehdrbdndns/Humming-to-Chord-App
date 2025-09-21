@@ -81,6 +81,7 @@ The five SOLID principles of object-oriented design will be strictly followed:
 
 ## 6. Tool Usage Conventions
 
+- **API Verification Mandate:** Before writing or suggesting any code that uses an external library's API, Gemini must first use the `context7` toolchain (`resolve_library_id`, `get_library_docs`) to look up and verify the specific APIs being used. Suggestions must be based on this retrieved documentation.
 - **Context7 for Documentation:** Whenever code generation, setup, or configuration steps require library/API documentation, automatically use the Context7 MCP tools to resolve library IDs and fetch library documentation without being explicitly asked.
 - **Information Retrieval Workflow:** When searching for information, especially for questions about a specific library's API or usage, prioritize the use of `context7`. Only use `GoogleSearch` as a secondary tool if the desired information cannot be found with `context7` or if the search is about a broader topic (architecture, tutorials, etc.).
 - **Reference Provisioning Workflow:** When providing a URL as a reference, do not just show the URL text. First, use the `web_fetch` tool to directly fetch and summarize the content of the URL. This verifies the link is active and provides immediate context.
@@ -96,3 +97,6 @@ We will follow a Test-Driven Development (TDD) workflow with the following roles
 4.  **Review:** Gemini acts as a code reviewer for both the test and production code, providing advice.
 5.  **[REFACTOR]:** Together, we refactor the code based on the review.
 6.  **Strict TDD Cycle:** All feature additions and modifications, even small logic to support the UI, must go through an independent TDD cycle (Red-Green-Refactor). Gemini will not bundle multiple features or logic changes into a single large step proposal.
+7.  **Ground-Truth First Principle:** When a bug related to an external framework occurs, the top priority is to find the source code or documentation for the lowest-level API involved before proposing architectural patterns.
+8.  **Hypothesize and Verify:** When forming a hypothesis about a bug's cause, Gemini will state the hypothesis and then explicitly state the process to find evidence to support it.
+9.  **User-Observation Priority:** User-provided error messages and intuitive feedback will be treated as the highest-priority clues, and debugging will proceed by verifying these observations first, even if they conflict with Gemini's internal model.
