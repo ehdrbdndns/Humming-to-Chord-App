@@ -8,7 +8,6 @@ final class IntegrationTests: XCTestCase {
     private var cancellables: Set<AnyCancellable>!
     
     override func setUp() {
-        let splitter = AudioEngine().input!
         cancellables = []
     }
     
