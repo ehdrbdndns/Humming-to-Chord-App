@@ -41,11 +41,16 @@ class ContentViewModel {
         }
         
         self.engine = AudioEngine()
-        self.pitchService = PitchDetectionService(nodeToTap: engine.input!)
+        guard let mic = self.engine.input else {
+            fatalError("mic is nil")
+        }
+        let splitter = Mixer(mic)
+        
+        self.pitchService = PitchDetectionService(nodeToTap: splitter)
         self.noteAggregatorService = NoteAggregatorService()
         self.keyDetectionService = KeyDetectionService()
         
-        engine.output = Mixer(self.engine.input!)
+        engine.output = splitter
         
         setupSink()
     }
@@ -84,8 +89,9 @@ class ContentViewModel {
     private func startRecording() throws {
         try pitchService.start()
         try engine.start()
-        
         isRecording = true
+        
+        self.detectedKey = nil
     }
     
     private func stopRecording() {
