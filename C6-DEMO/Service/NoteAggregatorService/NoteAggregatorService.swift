@@ -23,7 +23,7 @@ final class NoteAggregatorService: NoteAggregatorServiceProtocol {
         
         
         // amplitude filtering
-        guard amplitude > 0.01 else {
+        guard amplitude > 0.1 else {
             finishCurrentNote()
             return
         }

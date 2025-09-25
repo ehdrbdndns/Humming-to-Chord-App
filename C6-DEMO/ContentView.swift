@@ -28,7 +28,35 @@ struct ContentView: View {
                 .minimumScaleFactor(0.8)
                 .padding()
                 .frame(height: 50)
-
+            
+            Spacer()
+            
+            // Fixed: Avoid string interpolation with optional
+            if let detectedKey = viewModel.detectedKey {
+                Text(String(describing: detectedKey.root))
+                    .font(.headline)
+                    .foregroundStyle(.secondary)
+                    .lineLimit(1)
+                    .minimumScaleFactor(0.8)
+                    .padding()
+                    .frame(height: 50)
+                Text(String(describing: detectedKey.quality))
+                    .font(.headline)
+                    .foregroundStyle(.secondary)
+                    .lineLimit(1)
+                    .minimumScaleFactor(0.8)
+                    .padding()
+                    .frame(height: 50)
+            } else {
+                Text("waiting...")
+                    .font(.headline)
+                    .foregroundStyle(.secondary)
+                    .lineLimit(1)
+                    .minimumScaleFactor(0.8)
+                    .padding()
+                    .frame(height: 50)
+            }
+            
             Spacer()
 
             // Record/Stop Button

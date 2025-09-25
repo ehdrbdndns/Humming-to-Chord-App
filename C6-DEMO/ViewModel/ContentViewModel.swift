@@ -21,10 +21,14 @@ class ContentViewModel {
     
     private(set) var resultText: String = ""
     private(set) var isRecording: Bool = false
-    private(set) var errorText: String? = nil
+    private(set) var detectedKey: Key? = nil
     private(set) var waveformSamples: [Float] = []
     
+    private(set) var errorText: String? = nil
+    
     private let pitchService: PitchDetectionServiceProtocol
+    private let noteAggregatorService: NoteAggregatorServiceProtocol
+    private let keyDetectionService: KeyDetectionServiceProtocol
     private var cancellables: Set<AnyCancellable> = []
     
     init() {
@@ -38,6 +42,8 @@ class ContentViewModel {
         
         self.engine = AudioEngine()
         self.pitchService = PitchDetectionService(nodeToTap: engine.input!)
+        self.noteAggregatorService = NoteAggregatorService()
+        self.keyDetectionService = KeyDetectionService()
         
         engine.output = Mixer(self.engine.input!)
         
@@ -45,9 +51,15 @@ class ContentViewModel {
     }
     
     // 테스트를 위한 생성자
-    init(pitchService: PitchDetectionServiceProtocol) {
+    init(
+        pitchService: PitchDetectionServiceProtocol,
+        noteAggregatorService: NoteAggregatorServiceProtocol,
+        keyDetectionService: KeyDetectionServiceProtocol
+    ) {
         self.engine = AudioEngine()
         self.pitchService = pitchService
+        self.noteAggregatorService = noteAggregatorService
+        self.keyDetectionService = keyDetectionService
         
         setupSink()
     }
@@ -55,27 +67,44 @@ class ContentViewModel {
     private func setupSink() {
         pitchService.pitchPublisher
             .sink { [weak self] (pitch, amplitude) in
+                guard let self = self else { return }
+                
+                self.noteAggregatorService.add(
+                    pitch: Float(pitch),
+                    amplitude: Float(amplitude)
+                )
+                
                 DispatchQueue.main.async {
-                    self?.resultText = "Pitch: \(pitch), Amp: \(amplitude)"
+                    self.resultText = "Pitch: \(pitch), Amp: \(amplitude)"
                 }
             }
             .store(in: &cancellables)
     }
     
+    private func startRecording() throws {
+        try pitchService.start()
+        try engine.start()
+        
+        isRecording = true
+    }
+    
+    private func stopRecording() {
+        pitchService.stop()
+        engine.stop()
+        isRecording = false
+        
+        let notes = noteAggregatorService.finalize()
+        self.detectedKey = keyDetectionService.findKey(for: notes)
+    }
+    
     func toggleRecording() {
         if isRecording {
-            pitchService.stop()
-            
-            engine.stop()
-            isRecording = false
+            stopRecording()
             return;
         }
         
         do {
-            try pitchService.start()
-            try engine.start()
-            
-            isRecording = true
+            try startRecording()
         } catch {
             logger.error("Error starting pitch detection: \(error.localizedDescription)")
             errorText = "잠시 후 다시 시도해 주세요."
@@ -87,3 +116,4 @@ class ContentViewModel {
         errorText = nil
     }
 }
+

@@ -11,7 +11,11 @@ final class ContentViewModelTests: XCTestCase {
     override func setUp() {
         super.setUp()
         mockPitchService = .init()
-        viewModel = ContentViewModel(pitchService: mockPitchService)
+        viewModel = ContentViewModel(
+            pitchService: mockPitchService,
+            noteAggregatorService: NoteAggregatorService(),
+            keyDetectionService: KeyDetectionService()
+        )
         cancellables = []
     }
     
