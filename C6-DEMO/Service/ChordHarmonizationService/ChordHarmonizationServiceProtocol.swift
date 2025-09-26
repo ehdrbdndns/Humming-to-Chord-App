@@ -1,4 +1,7 @@
+import Foundation
+
 protocol ChordHarmonizationServiceProtocol {
-    func getDiatonicChords(for: Key) -> [Chord]
-    func getCandidateChords(for: Note, in: Key) -> [Chord]
+    func getDiatonicChords(for key: Key) -> [Chord]
+    func getCandidateChords(for note: Note, in key: Key) -> [Chord]
+    func harmonize(melody: [Note], key: Key, bpm: Double, timeSignature: TimeSignature) -> [Chord]
 }

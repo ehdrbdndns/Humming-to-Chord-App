@@ -4,7 +4,7 @@ enum ChordQuality {
     case diminished
 }
 
-struct Chord: Equatable {
+struct Chord: Equatable, Hashable {
     let root: PitchClass
     let quality: ChordQuality
     
