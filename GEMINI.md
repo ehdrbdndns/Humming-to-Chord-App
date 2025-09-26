@@ -47,37 +47,22 @@ The five SOLID principles of object-oriented design will be strictly followed:
 
 ## 5. Development Steps (Roadmap)
 
-### Step 1: Project Setup & Configuration
-- Add `AudioKit` dependency to the project using Swift Package Manager (SPM).
-- Configure the project's `Info.plist` to request microphone usage permission (`Privacy - Microphone Usage Description`).
-- Set up basic project structure with folders for `View`, `ViewModel`, `Model`, and `Service`.
+### Step 1: Project Setup & Configuration (Completed)
+- Add `AudioKit` dependency, configure `Info.plist`, and set up basic project structure.
 
-### Step 2: Pitch Analysis Service Implementation
-- Create a `PitchDetectionService` class in accordance with SRP.
-- Inside this service, set up the `AudioEngine`, microphone input, and `PitchTap`.
-- Implement `start()` and `stop()` methods to control the audio analysis.
-- The `PitchTap` handler will process incoming `pitch` and `amp` values.
-- Implement noise filtering by ignoring events where `amp` is below a certain threshold (e.g., 0.01).
+### Step 2: Audio Input Service Implementation (Completed)
+- Implemented `PitchDetectionService` to handle `AudioEngine` setup and provide a real-time stream of `(pitch, amplitude)` data using `PitchTap`.
 
-### Step 3: Melody Data Transformation
-- Define a `Note` struct to represent a musical note (e.g., containing pitch name like "C#4" and duration).
-- Create a utility or service to convert raw frequency (Hz) from `PitchTap` into `Note` objects.
-- Implement logic to capture a sequence of these `Note` objects during a recording session.
+### Step 3: Melody Data Transformation (Completed)
+- Implemented `NoteAggregatorService` to consume the real-time pitch stream and convert it into a clean `[Note]` array, representing the user's melody.
 
-### Step 4: Chord Harmonization Service Implementation
-- Create a `ChordHarmonizationService` class.
-- This service will accept a sequence of `Note` objects as input.
-- **(a) Key Detection:** Implement an algorithm to determine the most likely musical key from the note sequence.
-- **(b) Chord Generation:** Based on the detected key and the notes, generate a list of suitable chord progression suggestions. Start with common diatonic chord patterns (e.g., I-IV-V, ii-V-I).
+### Step 4: Key & Chord Analysis Service (In Progress)
+- **(a) Key Detection (Completed):** Implemented `KeyDetectionService` using the Krumhansl-Schmuckler algorithm to find the most likely key from a `[Note]` array.
+- **(b) Chord Generation (Next Step):** Create a `ChordHarmonizationService`. This service will take the detected `Key` and the `[Note]` array as input. It will use the user-provided **BPM and Time Signature** to segment the melody into measures and recommend diatonic chord progressions.
 
-### Step 5: UI & ViewModel Implementation (MVVM)
-- **View:** Create a `ContentView` in SwiftUI with a "Record" button and a text area to display results.
-- **ViewModel:** Create a `ContentViewModel` to act as a bridge.
-    - The ViewModel will hold the state (e.g., `isRecording`, `resultText`).
-    - The "Record" button action in the View will call methods on the ViewModel (e.g., `toggleRecording()`).
-    - The ViewModel will use `PitchDetectionService` to manage recording.
-    - Upon completion, the ViewModel will pass the note sequence to `ChordHarmonizationService` and receive chord suggestions.
-    - The ViewModel will format the suggestions and update the `resultText`, which the View will automatically display.
+### Step 5: UI & ViewModel Implementation (Partially Completed)
+- **ViewModel:** The `ContentViewModel` is implemented to act as a conductor, owning and coordinating all the services (`PitchDetectionService`, `NoteAggregatorService`, `KeyDetectionService`). It processes the audio data flow from start to finish.
+- **View:** A basic `ContentView` is implemented with a Record/Stop button and text display. It will be updated to include input fields for **BPM and Time Signature**.
 
 ## 6. Tool Usage Conventions
 
